@@ -1,0 +1,319 @@
+\subsection*{1--1. \textbf{Convolutional integrals} [4 pts].}
+
+The response of a 1D viscoelastic material to an applied forcing function is given using a convolutional integral:
+\begin{equation}
+    \varepsilon(t) = \int_0^t J(t-\tau) \frac{d\sigma(\tau)}{d\tau} d\tau,
+\end{equation}
+where $\varepsilon(t)$ is the time-dependent strain response, $\sigma(t)$ is the prescribed stress function, and $J(t)$ is the material compliance, assumed to not depend on the level of stress applied. 
+Say we have a compliance function 
+\begin{equation}
+    J(t) = J_\infty + (J_0-J_\infty)\exp[-t/\tau_c],
+\end{equation}
+where $J_0, J_\infty, \tau_c$ are all constants $\in \mathbbm{R}$. 
+We subject this material to two different loading profiles: (a) step load $\sigma_1(t) = \sigma_0 H(t)$ and (b) a sinusoidal load $\sigma_2(t) = \sigma_0  \sin(\omega t)$, where $\sigma_0$ and $\omega$ are also constant, and $H(t)$ is the step function. 
+
+Determine the corresponding Laplace transforms of the strain functions $\mathcal{L}\{\varepsilon_1(t)\}$ and $\mathcal{L}\{\varepsilon_2(t)\}$.
+
+$\mathcal{L}\{\varepsilon_1(t)\}$:
+
+\begin{align*}
+    \varepsilon_1 (t) &= \int_0^t J(t-\tau) \frac{d}{d t}(\sigma_0 H(t)) d\tau \\
+    \mathcal{L}\{\varepsilon_1(t)\} &= \frac{1}{s} \mathcal{L} \left\{ J(t-\tau) \frac{d}{dt}(\sigma_0 H(t)) \right\} \\
+    &= \frac{1}{s} \left[ \mathcal{L} \left\{ J_\infty + (J_0 - J_\infty) e^{-t/\tau_c}\right\}
+    \cdot \mathcal{L} \left\{ \frac{d}{dt}(\sigma_0 H(t)) \right\}\right] \\
+    &= \frac{1}{s} \left[ \left( \frac{J_\infty}{s} + \frac{J_0-J_\infty}{s+1/\tau_c} \right)
+    \cdot (\sigma_0 - 0) \right] \\
+    &= \boxed{\frac{\sigma_0}{s} \left( \frac{J_\infty}{s} + \frac{J_0-J_\infty}{s+1/\tau_c} \right).}
+\end{align*}
+
+$\mathcal{L}\{\varepsilon_2(t)\}$:
+
+\begin{align*}
+    \varepsilon_2 (t) &= \int_0^t J(t-\tau) \frac{d}{d t}(\sigma_0 \sin(\omega t)) d\tau \\
+    \mathcal{L}\{\varepsilon_2(t)\} &= \frac{1}{s} \mathcal{L} \left\{ J(t-\tau) \frac{d}{d t}(\sigma_0 \sin(\omega t)) \right\} \\
+    &= \frac{1}{s} \left[ \mathcal{L} \left\{ J_\infty + (J_0 - J_\infty) e^{-t/\tau_c}\right\}
+    \cdot \mathcal{L} \left\{ \frac{d}{dt}(\sigma_0 \sin(\omega t)) \right\}\right] \\
+    &= \frac{1}{s} \left[ \left( \frac{J_\infty}{s} + \frac{J_0-J_\infty}{s+1/\tau_c} \right)
+    \cdot \left( \frac{s\sigma_0 \omega}{s^2 + w^2} - 0 \right) \right]\\
+    &= \boxed{\frac{\sigma_0 \omega}{s^2 + w^2} \left( \frac{J_\infty}{s} + \frac{J_0-J_\infty}{s+1/\tau_c} \right).}
+\end{align*}
+
+\newpage
+\subsection*{1--2. \textbf{Index notation} [4 pts].}
+\textbf{1. :}
+\begin{align*}
+    \bm{p} \times (\bm{q} \times \bm{r}) &\rightarrow \epsilon_{ijk} p_i (\epsilon_{lmj} q_l r_m)\bm{e}_i = \epsilon_{kij} \epsilon_{lmj} p_i q_l r_m \bm{e}_i\\
+    &= (\delta_{kl} \delta_{im} - \delta_{km} \delta_{il}) p_i q_l r_m \bm{e}_i = p_m q_l r_m \bm{e}_i - p_l q_l r_m \bm{e}_i\\
+    &\rightarrow \boxed{(\bm{p} \cdot \bm{r})\bm{q} - (\bm{p} \cdot \bm{q})\bm{r} = (\bm{r} \cdot \bm{p}) \bm{q} - (\bm{q} \cdot \bm{p}) \bm{r}.}
+\end{align*}
+
+\textbf{2. :}
+\begin{align*}
+    (\bm{p} \times \bm{q}) \cdot (\bm{a} \times \bm{b}) &\rightarrow \epsilon_{ijk} p_i q_j \epsilon_{lmn} a_l b_m \delta_{kn} = \epsilon_{ijk} \epsilon_{lmk} p_i q_j a_l b_m\\
+    &= (\delta_{il} \delta_{jm} -\delta_{im}\delta_{jl}) p_i q_j a_l b_m \\
+    &= p_l q_m a_l b_m - p_m q_l a_l b_m \\
+    &\rightarrow \boxed{(\bm{p} \cdot \bm{a}) (\bm{q} \cdot \bm{b}) - (\bm{p} \cdot \bm{b}) (\bm{q} \cdot \bm{a}).}
+\end{align*}
+
+\textbf{3. :}
+\begin{align*}
+    (\bm{a} \otimes \bm{b})(\bm{p} \otimes \bm{q}) &\rightarrow a_i b_j p_j q_k = a_i q_k b_j p_j\\
+    &\rightarrow \boxed{\bm{a} \otimes \bm{q} (\bm{b} \cdot \bm{p}).}
+\end{align*}
+
+\textbf{4. :}
+\begin{align*}
+    \bn{Q}^\intercal\bm{a} \cdot \bn{Q}^\intercal\bm{b} \rightarrow Q_{ij}^\intercal a_j Q_{kl}^\intercal b_l (\bm{e}_i \otimes \bm{e}_k) &= a_j Q_{ij} Q_{kl}^\intercal b_l \delta_{ik} = a_j Q_{kj} Q_{kl}^\intercal b_l = a_j b_l \delta_{jl}\\
+    &= a_l b_l\\
+    &\rightarrow \boxed{\bm{a} \cdot \bm{b}.}
+\end{align*}
+
+\newpage
+\subsection*{1--3. \textbf{Tensors and vectors} [4 pts].}
+The second-order projection tensors $\bn{P}_{\bm{n}}^{||}$ and $\bn{P}_{\bm{n}}^{\perp}$ are useful operators that take a vector $\bm{u}$ and map that vector to its part parallel and perpendicular to a vector $\bm{n}$, respectively (\cite{holzapfelNonlinearSolidMechanics2002}).
+
+They are defined via:
+\begin{equation*}
+    \bm{u}_{||} = (\bm{u} \cdot \bm{n}) \otimes \bm{n} = (\bm{n} \otimes \bm{n}) \bm{u} = \bn{P}_{\bm{n}}^{||} \bm{u},
+\end{equation*}
+\begin{equation*}
+    \bm{u}_{\perp} = \bm{u} - \bm{u}_{||} = (\bn{I} - \bm{n} \otimes \bm{n}) \bm{u} = \bn{P}_{\bm{n}}^{\perp} \bm{u}.
+\end{equation*}
+
+The projection tensors have properties
+\begin{align*}
+    \bn{P}_{\bm{n}}^{||} + \bn{P}_{\bm{n}}^{\perp} &= \bn{I} \\
+    \left(\bn{P}_{\bm{n}}^{||} \right)^m &= \bn{P}_{\bm{n}}^{||} ~\forall ~m \in \mathbbm{Z}^+\\
+    \left(\bn{P}_{\bm{n}}^{\perp} \right)^m &= \bn{P}_{\bm{n}}^{\perp} ~\forall ~m \in \mathbbm{Z}^+\\
+    \bn{P}_{\bm{n}}^{||} \bn{P}_{\bm{n}}^{\perp} = \bn{P}_{\bm{n}}^{\perp} \bn{P}_{\bm{n}}^{||}  &= \bn{0}
+\end{align*}
+
+Using the projection tensors, show that $\bm{u} = (\bm{u} \cdot \bm{n}) \bm{n} + \bm{n} \times (\bm{u} \times \bm{n} )$.
+
+Assuming $\bm{n}$ is a unit vector, then
+\begin{align*}
+    \bm{u} = \bm{u}_{||} + \bm{u}_{\perp} &= (\bm{u} \cdot \bm{n} ) \bm{n} + \bm{u} - ( \bm{n} \otimes \bm{n} ) \bm{u}\\
+    &= (\bm{u} \cdot \bm{n} ) \bm{n} + \bm{u} - (\bm{n} \cdot \bm{u}) \bm{n} = (\bm{u} \cdot \bm{n} ) \bm{n} + 1 \bm{u} - (\bm{n} \cdot \bm{u}) \bm{n}\\
+    &= (\bm{u} \cdot \bm{n} ) \bm{n} + |\bm{n}|^2 \bm{u} - (\bm{n} \cdot \bm{u}) \bm{n} =  (\bm{u} \cdot \bm{n} ) \bm{n} + (\bm{n} \cdot \bm{n}) \bm{u} - (\bm{n} \cdot \bm{u}) \bm{n}\\
+    &= \boxed{(\bm{u} \cdot \bm{n} ) \bm{n} + \bm{n} \times (\bm{u} \times \bm{n}).}
+\end{align*}
+
+\newpage
+\subsection*{1--4. \textbf{Vector and tensor calculus}}
+
+\textbf{1. :}
+\begin{align*}
+    \gradX \times (\phi \bm{a}) &\rightarrow \epsilon_{ijk} \frac{\partial (\phi a_j)}{\partial x_i} \bm{e_k}\\
+    &=  \epsilon_{ijk} \frac{\partial (\phi)}{\partial x_i} a_j \bm{e_k} + \phi \epsilon_{ijk} \frac{\partial a_j}{\partial x_i} \bm{e_k}\\
+    &\rightarrow (\gradX \phi \times \bm{a}) + \phi (\gradX \times \bm{a})\\
+    & = \boxed{\phi \gradX \times \bm{a} + (\gradX\phi) \times \bm{a}.}
+\end{align*}
+
+\textbf{2. :}
+\begin{align*}
+    &(\bm{a} \cdot \gradX) \bm{b} + (\bm{b} \cdot \gradX) \bm{a} + \bm{a} \times (\gradX \times \bm{b}) + \bm{b} \times (\gradX \times \bm{a}) \\
+    &\rightarrow a_i \frac{\partial b_j}{\partial x_i} + b_i \frac{\partial a_j}{\partial x_i} + \epsilon_{ijk} a_j \epsilon_{klm} \frac{\partial b_m}{\partial x_l} + \epsilon_{ijk} b_j \epsilon_{klm} \frac{\partial a_m}{\partial x_l}\\
+    &= a_i \frac{\partial b_j}{\partial x_i} + b_i \frac{\partial a_j}{\partial x_i} + \epsilon_{kij} \epsilon_{klm} a_j \frac{\partial b_m}{\partial x_l} + \epsilon_{kij} \epsilon_{klm} b_j \frac{\partial a_m}{\partial x_l}\\
+    &= a_i \frac{\partial b_j}{\partial x_i} + b_i \frac{\partial a_j}{\partial x_i} + (\delta_{il} \delta_{jm} - \delta_{im} \delta_{jl}) a_j \frac{\partial b_m}{\partial x_l} + (\delta_{il} \delta_{jm} - \delta_{im} \delta_{jl}) b_j \frac{\partial a_m}{\partial x_l}\\
+    &= a_i \frac{\partial b_j}{\partial x_i} + b_i \frac{\partial a_j}{\partial x_i} + a_m \frac{\partial b_m}{\partial x_l} + a_l \frac{\partial b_m}{\partial x_l}  + b_m \frac{\partial a_m}{\partial x_l} + b_l \frac{\partial a_m}{\partial x_l}\\
+    &= a_m \frac{\partial b_m}{\partial x_l} + b_m \frac{\partial a_m}{\partial x_l}\\
+    &= \frac{\partial (a_m b_m)}{\partial x_L}\\
+    &\rightarrow \boxed{\gradX (\bm{a} \cdot \bm{b}).}
+\end{align*}
+
+\textbf{3. :}
+\begin{align*}
+    (\bn{A} \bn{B}) \bn{:} \bn{C} &\rightarrow [ A_{ij} B_{jl} (\bm{e}_i \otimes \bm{e}_l)] \bn{:} C_{km} (\bm{e}_k \otimes \bm{e}_m)\\
+    &= A_{ij} B_{jl} C_{km} \delta_{ik} \delta_{lm}\\
+    &= A_{kj} B_{jm} C_{km} \\
+    &= A_{jk} C_{km} B_{jm} \rightarrow (\bn{A}^\intercal \bn{C}) \bn{:} \bn{B}\\
+    &= A_{kj} B_{mj} C_{km} \rightarrow (\bn{C} \bn{B}^\intercal) \bn{:} \bn{A}\\
+    &\text{thus}\\
+     (\bn{A} \bn{B}) \bn{:} \bn{C} = (&\bn{A}^\intercal \bn{C}) \bn{:} \bn{B} = (\bn{C} \bn{B}^\intercal) \bn{:} \bn{A}.
+\end{align*}
+
+\textbf{4. :}
+Let $J = \det \bn{F}$. Show that $\frac{\partial J}{\partial \bn{F}} = J \bn{F}^{-\intercal}$.
+
+$J = \det \bn{F} = \frac{1}{6} \epsilon_{ijk} \epsilon_{pqr} F_{ip} F_{jq} F_{kr}$
+
+\begin{align*}
+    \frac{\partial J}{\partial \bn{F}} &= \frac{\partial \frac{1}{6} \epsilon_{ijk} \epsilon_{pqr} F_{ip} F_{jq} F_{kr}}{\partial F_{mn}}\\
+    &= \frac{1}{6} \epsilon_{mjk} \epsilon_{nqr} \frac{\partial}{\partial F_{mn}} (F_{ip} F_{jq} F_{kr})\\
+    &= \frac{1}{6} \epsilon_{mjk} \epsilon_{nqr} \left( \frac{\partial F_{ip}}{\partial F_{mn}} F_{jq} F_{kr} + F_{ip}\frac{\partial F_{jq}}{\partial F_{mn}} F_{kr} + F_{ip} F_{jq} \frac{\partial F_{kr}}{\partial F_{mn}} \right)\\
+    &= \frac{1}{6} \epsilon_{mjk} \epsilon_{nqr} \left( \delta_{mi} \delta{np} F_{jq} F_{kr} + F_{ip} \delta_{mj} \delta{nq} F_{kr} + F_{ip} F_{jq} \delta_{mk} \delta_{nr} \right)\\
+    &= \frac{1}{6} \epsilon_{mjk} \epsilon_{nqr} (3 F_{jq} F_{kr})\\
+    &= \boxed{\frac{1}{2} \epsilon_{mjk} \epsilon_{nqr} F_{jq} F_{kr}.}
+\end{align*}
+
+Then
+\begin{align*}
+    \frac{\partial J}{\partial \bn{F}} &= J \bn{F}^{-1}\\
+    \frac{\partial J}{\partial F_{mn}} F_{nk}^\intercal &= J \delta_{mk}\\
+    \frac{\partial J}{\partial F_{kn}} F_{nk}^\intercal &= 3J\\
+    \boxed{\frac{1}{2} \epsilon_{mjk} \epsilon_{nqr} F_{jq} F_{kr} F_{mn}} &= \boxed{\frac{1}{2} \epsilon_{ijk} \epsilon_{pqr} F_{ip} F_{jq} F_{kr}}.
+\end{align*}
+
+Through this relation we can see that the identity is indeed correct and that the two sides of the equation are equivalent.
+
+\newpage
+\subsection*{1--5. \textbf{Kinematics}}
+The Happy Gelatinous Cube (HGC, pictured) $\mathcal{G}$ exists on a domain of $\{-1\leq X_1 , X_3\leq1, 0\leq X_2 \leq 2\}$ at initial time $t=0$. 
+At all times, the bottom surface of the HGC does not move. 
+Its top surface moves sinusoidally in time at frequency $\omega$ by a maximum magnitude of $\alpha$. 
+At maximum compression, points in the centers of the surfaces defined by outward normals $\bm{e}_1$ and $\bm{e}_3$ experience maximum displacements of magnitude $\beta$. 
+
+\begin{figure}[h!]
+\centering
+\animategraphics[loop,autoplay,width=4in]{10}{instr-figures/The_Happy_Gelatinous_Cube-}{1}{10}
+\end{figure}
+
+\medskip
+(a) Determine the deformation gradient tensor $[\bn{F}(\bm{X})]^{\bm{e}}$ for all $\bm{X}\in \mathcal{G}$. 
+Describe any assumptions you make about the shape of the HGC as it deforms.
+
+Assuming the top and bottom surfaces don't deform, i.e. deformation at $\bn{X}_2 (0)$ and $\bn{X}_2 (2)$ is zero, then:
+
+The top surface has $\bm{u} (\bn{X}_2 = 2) = (0, \alpha \sin (\omega t), 0)$ and the bottom surface has $\bm{u} (\bn{X}_2 = 0) = (0, 0, 0)$.
+
+Then $\bm{u} (\bn{X}_2 = 1) = -\beta \sin (\omega t) \bn{X}_1 - \beta \sin (\omega t) \bn{X}_3$.
+
+Then, by combining all of these and by assuming that the shape of the curve between the top and the bottom plane in the $\bm{e}_2$ direction is quadratic, we get:
+\begin{align*}
+    \bm{u}_1 &= -\bn{X}_2 (2-\bn{X}_2) \beta \sin (\omega t) \bn{X_1}\\
+    \bm{u}_2 &= \frac{\alpha}{2} \sin (\omega t) \bn{X}_2\\
+    \bm{u}_3 &= -\bn{X}_2 (2-\bn{X}_2) \beta \sin (\omega t) \bn{X_3}.
+\end{align*}
+
+Finally, to obtain the deformation gradient tensor, we need to utilize and calculate $\bn{F} = \frac{\partial \bm{x}}{\partial \bn{X}} = \bn{I} + \frac{\partial \bm{u}}{\partial \bn{X}}$.
+
+From this we get
+\begin{equation*}
+  [\bn{F} (\bn{X})] ^e =   
+\begin{bmatrix}
+-\beta \bn{X}_2 (2-\bn{X}_2) \sin (\omega t) + 1 & -\beta (2-2\bn{X}_2) \sin(\omega t) & 0\\
+0 & \frac{\alpha}{2} \sin (\omega t) +1 & 0\\
+0 & -\beta (2-2\bn{X}_2) \sin(\omega t) & -\beta \bn{X}_2 (2-\bn{X}_2) \sin (\omega t) + 1
+\end{bmatrix}
+\end{equation*}
+
+\medskip
+(b) Determine the stretch magnitude of a small fiber positioned at a height $X_2 = 1$ and oriented at an angle $\theta$ from the $\bm{e}_1$ axis.
+
+The fiber positioned at an angle $\theta$ to $\bm{e}_1$ in the $\bm{e}_1$, $\bm{e}_3$ plane can be expressed as $\bn{\hat{n}} = [\cos(\theta), 0, \sin(\theta)]$.
+
+Then, since we're evaluating $\bn{F}$ at $\bn{X}_2 = 1$, we get:
+\begin{equation*}
+ \left. [\bn{F} (\bn{X})] ^e \right\rvert_{\bn{X}_2 = 1} =   
+\begin{bmatrix}
+-\beta \sin (\omega t) + 1 & 0 & 0\\
+0 & \frac{\alpha}{2} \sin (\omega t) +1 & 0\\
+0 & 0 & -\beta \sin (\omega t) + 1
+\end{bmatrix}
+\end{equation*}
+
+The stretch is calculated as $\lambda(\hat{n}) = \sqrt{\hat{n} \cdot \bn{C} \hat{n}}$. To obtain $\bn{C}$, the right Cauchy-Green tensor, we need to compute $\bn{F}^\intercal \bn{F}$, which in this case, since we only have entries on the diagonal, is simply equal to $\bn{F}^2$.
+\begin{equation*}
+ \bn{F}^\intercal \bn{F} =   
+\begin{bmatrix}
+\beta^2 \sin^2 (\omega t) - 2 \beta \sin (\omega t) + 1 & 0 & 0\\
+0 & \frac{\alpha^2}{4} \sin^2 (\omega t) + \alpha \sin (\omega t) +1 & 0\\
+0 & 0 & \beta^2 \sin^2 (\omega t) - 2 \beta \sin (\omega t) + 1
+\end{bmatrix}
+\end{equation*}
+
+Then
+\begin{equation*}
+ \bn{F}^\intercal \bn{F} \bm{\hat{n}} =   
+\begin{bmatrix}
+(\beta^2 \sin^2 (\omega t) - 2 \beta \sin (\omega t) + 1) \cos(\theta) \\
+0 \\
+(\beta^2 \sin^2 (\omega t) - 2 \beta \sin (\omega t) + 1) \sin(\theta)
+\end{bmatrix}
+\end{equation*}
+
+Finally, by computing the dot product, we get
+\begin{align*}
+    \lambda^2 = \bn{\hat{n}} \cdot \bm{F}^\intercal \bm{F} \bn{\hat{n}} &= (\beta^2 \sin^2 (\omega t) - 2 \beta \sin (\omega t) + 1) \cos^2 (\theta) + (\beta^2 \sin^2 (\omega t) - 2 \beta \sin (\omega t) + 1) \sin^2 (\theta)\\
+    &= (\cos^2 + \sin^2)(1 - \beta \sin(\omega t))^2\\
+    &= (1 - \beta \sin(\omega t))^2.
+\end{align*}
+
+And, therefore, the stretch ratio for this fiber is
+\begin{equation*}
+    \lambda = \sqrt{\lambda^2} = 1 - \beta \sin(\omega t).
+\end{equation*}
+
+\medskip
+(c) Determine the Lagrange-Green strain tensor $\bn{E}$ and the material logarithmic strain tensor $\bn{E}_H = \ln (\bn{U})$ for the geometric center $\bm{X}_c$ of the HGC\footnote{Note that the log of a tensor is defined by writing it spectrally and replacing each eigenvalue with the log of that eigenvalue. For a case of no shear/off-diagonal terms, you can just take the log of each element on the diagonal to get $\ln(\bn{U})$.}. 
+What are the maximum and minimum values of the strain eigenvalues $E_i(t)$ and $E_i^H(t)$? 
+Would you expect one set to be more symmetric about zero as $\alpha$ gets large, and why?
+
+To start with, let's calculate the Lagrange-Green strain tensor $\bn{E}$ and the material logarithmic strain tensor $\bn{E}^H$.
+
+\begin{align*}
+&\bn{E} = \frac{1}{2} (\bn{C} - \bn{I}) =
+\begin{bmatrix}
+\frac{1}{2}[(\beta\sin(\omega t) - 1)^2 - 1] & 0 & 0\\
+0 & \frac{1}{2}[(\frac{\alpha^2}{2} \sin (\omega t) + 1)^2 -1] & 0\\
+0 & 0 & \frac{1}{2}[(\beta\sin(\omega t) - 1)^2 - 1]
+\end{bmatrix}\\
+\\
+&\bn{E}^H = \ln(\bn{U}) = \ln(\bn{F})
+\begin{bmatrix}
+\ln (1- \beta \sin (\omega t)) & 0 & 0\\
+0 & \ln (\frac{\alpha}{2} \sin (\omega t) +1) & 0\\
+0 & 0 & \ln(1- \beta \sin (\omega t))
+\end{bmatrix}
+\end{align*}
+
+Since both of these tensors are diagonal, the eigenvalues are simply the diagonal entries of each tensor. Therefore, for $\bn{E}$, the eigenvalues are
+\begin{align*}
+    &\lambda_{1,3} = \frac{\beta^2 \sin^2 (\omega t)}{2} - \beta \sin (\omega t)\\
+    &\lambda_2 = \frac{\alpha^2 \sin^2(\omega t)}{8} + \frac{\alpha \sin (\omega t)}{2}.
+\end{align*}
+
+The maximum and minimum values of these eigenvalues are then
+\begin{align*}
+    &\lambda_{1,3}^{\text{max}} = \frac{\beta^2 + 2\beta}{2}\\
+    &\lambda_{1,3}^{\text{min}} = \frac{\beta^2 - 2\beta}{2}\\
+    &\lambda_2^{\text{max}} = \frac{\alpha^2 + 4\alpha}{8}\\
+    &\lambda_2^{\text{min}} = \frac{\alpha^2 - 4\alpha}{8}.
+\end{align*}
+
+For $\bn{E}^H$, the eigenvalues come out to be
+
+\begin{align*}
+    &\lambda_{1,3} = \ln (1 - \beta \sin (\omega t))\\
+    &\lambda_2 = \ln \left( \frac{\alpha \sin(\omega t)}{2} +1 \right),
+\end{align*}
+and their maximum and minimum values are
+\begin{align*}
+    &\lambda_{1,3}^{\text{max}} = \ln (1 + \beta)\\
+    &\lambda_{1,3}^{\text{min}} = \ln (1 - \beta) \text{, assuming $\beta < 1$}\\
+    &\lambda_2^{\text{max}} = \ln\left(\frac{\alpha}{2} + 1\right)\\
+    &\lambda_2^{\text{min}} = \ln \left( 1 - \frac{\alpha}{2}\right) \text{, assuming $\alpha < 2$}.\\
+\end{align*}
+
+I would expect the set of $\bn{E}$ to be more symmetric about 0 as $\alpha$ gets large because of the discontinuities that arise in the logarithmic strain tensor when $\alpha \geq 2$.
+
+\medskip
+(d) Determine the material point acceleration $\bm{A}(\bm{X}_1)$ at a point $\frac{1}{2} \bm{e}_1 + 2\bm{e}_2 + \frac{1}{2} \bm{e}_3$.
+
+To determine the material point acceleration in the $\bm{e}_1$ direction, we first need the mapping function
+\begin{equation*}
+    \chi (\bn{X}_1) = \bn{X}_1 - \bn{X_2} (2-\bn{X}_2)\beta \sin (\omega t).
+\end{equation*}
+
+Using that, we can calculate the general equation for material point velocity and acceleration in the $\bm{e}_1$ direction as
+\begin{align*}
+    &\bn{V}(\bn{X}, t) = \frac{\partial \chi (\bn{X}_1)}{\partial t} = -\omega \bn{X}_2 (2- \bn{X}_2) \beta \cos (\omega t) \bn{X}_1\\
+    &\bn{A}(\bn{X}, t) = \frac{\partial \bn{V}}{\partial t} = \omega^2 \bn{X}_2 (2 - \bn{X}_2) \beta \sin (\omega t) \bn{X}_1.
+\end{align*}
+
+This expression enables us to calculate the material point acceleration at the specified point as
+\begin{equation*}
+    \boxed{\left. \bn{A}(\bn{X}, t) \right\rvert_{\bn{X}_1 = 1/2, \bn{X}_2 = 2, \bn{X}_3 = 1/2} = \omega^2 \cdot 2 (2 - 2) \beta \sin (\omega t) \cdot \frac{1}{2} = 0,}
+\end{equation*}
+which, I believe, makes sense since this point is on the top surface of the HGC, which is not deforming , only sinusoidally displacing in the $\bm{e}_2$ direction. The acceleration in the $\bm{e}_1$ direction, should then be zero.
+
