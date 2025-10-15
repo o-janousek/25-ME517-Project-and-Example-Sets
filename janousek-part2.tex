@@ -1,0 +1,19 @@
+\section*{Project II: Literature Review}
+
+\textbf{Introductory context}
+\begin{itemize}
+    \item Rubber viscoelasticity is the underlying principle of tire friction and rolling resistance, with classical temperature–frequency dependence captured in the WLF shift factors (\cite{Williams_Landel_Ferry_1955}) and extended in traction-friction studies (\cite{Grosch_2007}) and road–track hysteresis models (\cite{kluppel-heinrichRubberFrictionSelfAffineRoad2000}).
+    \item Semi-empirical models like the Pacejka “Magic Formula” (\cite{pacejkaMagicFormula1992}) remain the state-of-the-art in vehicle dynamics, but other sources highlight that grip depends critically on operating near the rubber glass transition temperature $T_g$ (\cite{Haney_2003}), making thermomechanical behavior highly relevant to high-performance tires.
+\end{itemize}
+
+\textbf{The state of the field}
+\begin{itemize}
+    \item Constitutive models such as \cite{bergstrom-boyceConstModelLargeStrain1998} capture large-strain viscoelasticity, while shifting methods based on DMA refine frequency–temperature master curves (\cite{Lorenz_Pyckhout-Hintzen_Persson_2014}), providing input to tire FE simulations (\cite{Salehi_Noordermeer_Reuvekamp_Blume_2021}).
+    \item Persson’s contact mechanics theory (\cite{perssonRubberFrictionContactMech2001}) and extensions through roughness-sensitive contact modeling (\cite{Putignano_Afferrante_Carbone_Demelio_2012, Carbone_Putignano_2014}) describe how viscoelastic energy loss, surface statistics, and thermal effects dictate tire-road friction.
+\end{itemize}
+
+\textbf{The Big Gap}
+\begin{itemize}
+    \item Current methods remain divided between empirical curve-fitting (\cite{pacejkaMagicFormula1992, Salehi_Noordermeer_Reuvekamp_Blume_2021}) and physics-based viscoelastic friction models (\cite{perssonRubberFrictionContactMech2001, Carbone_Putignano_2014}), with limited integration across across operating conditions.
+    \item No predictive framework yet unifies $T_g$-sensitive viscoelastic constitutive laws (\cite{bergstrom-boyceConstModelLargeStrain1998, Lorenz_Pyckhout-Hintzen_Persson_2014}), rough-surface contact mechanics (\cite{Putignano_Afferrante_Carbone_Demelio_2012}), and transient heating effects emphasized in (\cite{Haney_2003}).
+\end{itemize}
