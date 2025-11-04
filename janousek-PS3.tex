@@ -1,0 +1,230 @@
+\setcounter{section}{3} % This causes the next section to be Appendix B
+
+
+\section*{Examples III. Linear Viscoelastic Models}
+\label{PS3}
+
+\medskip
+\subsection*{3--1. \textbf{Converting creep to relaxation} [4 pts].} 
+Say we measure the creep function for a material by fitting a sum of exponential functions to some data. 
+We determine the creep function to be 
+\begin{equation}
+    J_c(t) = \frac{1}{1000}\left(10 - 5 e^{-t/4} - 3e^{-t/8}\right).
+\end{equation}
+(a) Attach a plot of $J_c(t)$, labeling significant values.
+
+(b) Determine the corresponding stress relaxation function $G_r(t)$. What are the characteristic stress relaxation times now, and how do they compare to the creep relaxation times? 
+
+\textbf{Solution:}
+
+(a)
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.3]{janousek-figures/PS3_3_1.png}
+    \caption{$J_c(t)$ vs. $t$ with labeled significant values.}
+    \label{PS3_Q1}
+\end{figure}
+
+(b)
+
+Since we know that $sG_r(s) = \frac{1}{s J_c(s)}$, we can use this to determine the corresponding stress relaxation function $G_r(t)$.
+
+\begin{align*}
+    J_c(s) &= \frac{1}{100s} - \frac{3}{1000(s+\frac{1}{8}} - \frac{1}{200(s+\frac{1}{4}}\\
+    s J_C(s) &= \frac{1}{100} - \frac{3s}{1000s + 125} - \frac{s}{200s + 50}\\
+    &= \frac{(1000s + 125)(200s+50) - 300s(200s+50) - 100s(1000s + 125)}{100(1000s + 125)(200s + 50)}\\
+    &= \frac{32s^2 + 38s + 5}{500(32s^2 + 12s + 1)}\\
+    \frac{1}{sJ_c(s)} = sG_r(s) &= \frac{500(32s^2 + 12s +1}{s(32s^2 + 38s + 5)}\\
+    G_r(s) &= \frac{500(32s^2 + 12s +1}{32s^2 + 38s + 5}\\
+    \mathcal{L}^{-1} \{ G_r(s)\} &= \exp{\left(-\frac{t{\left(\sqrt{201}+19\right)}}{32}\right)} {\left[200\exp{\left( \frac{\sqrt{201}t}{16}\right)} +100\exp{\left(\frac{t{\left(\sqrt{201}+19\right)}}{32}\right)}\right\\
+    &\left -\frac{900\sqrt{201}\exp{\left(\frac{\sqrt{201}t}{16}\right)} }{67}+\frac{900\sqrt{201}}{67}+200\right]}\\
+    G_r(t) &\simeq 390.443\exp{(-1.0368t)} +9.55668\exp{(-0.150705t)} +100.0
+\end{align*}
+
+The exponential decay rates here are equal to $\alpha_1 = -1.03687$ and $\alpha_2 = -0.150705$. That means that the stress relaxation times are $\theta_1 = \frac{1}{\alpha_1} = 0.9645$s and $\theta_2 = \frac{1}{\alpha_2} = 6.6355$s. This makes sense, since the creep times should be larger than the relaxation times and only points to the complexities behind converting between $J_c(t)$ and $G_r(t)$.
+
+\newpage
+\subsection*{3--2. \textbf{Alternate standard linear solid model} [4 pts].}
+
+In class, we derived the relaxation and creep compliance functions $G_r(t)$ and $J_c(t)$ for a standard linear solid (SLS) model consisting of a spring in parallel with a Maxwell branch. 
+In this question, we'll investigate a variant arrangement for the SLS, where a spring is placed in series with a Kelvin-Voigt solid. 
+
+(a) Determine the differential constitutive law for the variant SLS. 
+
+(b) Then, the creep compliance function $J_c(t)$ and hence, the relaxation function $G_r(t)$.
+
+(c) How do the coefficients in the two variants of the standard solid model relate to each other?
+
+\textbf{Solution:}
+
+(a)
+
+Since we have a spring in series with a Kelvin-Voigt solid, we can say that for this arrangement $\varepsilon(t) = \varepsilon_{KV}(t) + \varepsilon_s(t)$ and $\sigma(t) = \sigma_{KV}(t) = \sigma_s(t)$. From definition, we know that $\sigma_s = E \varepsilon_s$ and therefore $\dot{\sigma} = E\dot{\varepsilon}_s$. For the Kelvin-Voigt solid, we, by definition, have $\sigma_{KV} = \eta \dot{\varepsilon}_{KV} + E_1\varepsilon_{KV}$.
+
+If we set $\tau = \frac{\eta}{E_1}$, we can rewrite the Kelvin-Voigt expression as $\frac{1}{E_1} \sigma = \tau \dot{\varepsilon}_{KV} + \varepsilon_{KV}$. Note that stress here is already only $\sigma$ because of the relations we have derived above for this particular arrangement. To incorporate the spring, we can write
+\begin{equation*}
+    \frac{E+E_1}{EE_1} \sigma = \tau \dot{\varepsilon}_{KV} + \varepsilon_{KV} + \varepsilon_s.
+\end{equation*}
+
+Finally, to complete the differential constitutive law for the variant SLS, we have to add $\tau \dot{\varepsilon}_s = \frac{\tau}{E} \dot{\sigma}_s$ to both sides as
+\begin{equation*}
+    \frac{E+E_1}{EE_1}\sigma + \frac{\tau}{E}\dot{\sigma} = \tau \dot{\varepsilon} + \varepsilon.
+\end{equation*}
+
+(b)
+
+Assuming the initial conditions to be $\varepsilon(0)=0$ and $\sigma(0)=0$, we can perform a Laplace transform on the constitutive law from part (a).
+\begin{align}
+    \frac{E+E_1}{EE_1} \sigma(s) + \frac{\tau}{E}s \sigma(s) &= \tau s \varepsilon(s) + \varepsilon(s) \nonumber\\
+    \left( \frac{E+E_1}{EE_1} + \frac{\tau}{E}s \right) \sigma(s) &= (\tau s + 1) \varepsilon(s) \nonumber\\
+    \left( \frac{E+E_1(\tau s + 1)}{EE_1} \right) \sigma(s) &= (\tau s + 1) \varepsilon(s) \nonumber\\
+    \varepsilon(s) &=  \left( \frac{E + E_1(\tau s +1)}{EE_1(\tau s +1)} \right) \sigma(s) \label{PS3_Q2_J_c}\\
+    \sigma(s) &= \left( \frac{EE_1(\tau s +1)}{E + E_1(\tau s +1)} \right) \varepsilon(s) \label{PS3_Q2_G_r}.
+\end{align}
+
+The terms in front of $\sigma(s)$ and $\varepsilon(s)$ in Equations \ref{PS3_Q2_J_c} and \ref{PS3_Q2_G_r}, respectively, represent the functions $J_c(s)$ and $G_r(s)$. We can thus perform an inverse Laplace transform on both of those to obtain their expressions in the time domain.
+
+\begin{align*}
+    \mathcal{L}^{-1}\left\{ \frac{E + E_1(\tau s +1)}{EE_1(\tau s +1)} \right\} &= J_c(t) = \frac{1}{E} \delta(t) + \frac{1}{E_1\tau} \exp(-t/\tau)\\
+    \mathcal{L}^{-1}\left\{ \frac{EE_1(\tau s +1)}{E + E_1(\tau s +1)} \right\} &= G_r(t) = E \delta(t) - \frac{E^2}{E_1 \tau} \exp\left( \frac{-t(E_1 + E)}{E_1 \tau} \right).
+\end{align*}
+
+(c)
+
+The other variant of the standard solid model yields
+\begin{align*}
+    J_c (t) &= E + E_1 \exp(-t/\tau)\\
+    G_r (t) &= \frac{1}{E} - \frac{E_1}{E(E+E_1)} \exp \left( \frac{-Et}{\tau (E + E_1)} \right).
+\end{align*}
+
+When comparing the coefficients, the exponent for $J_c(t)$ is the same for both versions. The constants at the start of each expression seem to be the other way around for either model. For $G_r(t)$, the exponent is different by a factor of $(E+E_1)^2 / EE_1$ when going from the Kelvin-Voigt solid with an in-series spring to the Maxwell fluid with an in-parallel spring. The delta functions here seem strange, I'm not sure if I made an algebraic error, but I went through the problem and couldn't find where I went wrong.
+
+
+
+\newpage
+\subsection*{3--3. \textbf{Frequency response of a 5-term analog model} [4 pts].}
+You have a five-parameter fit $G_r(t) = C_r (200 e^{-2t} + 100 e^{-t} + 10)$ that describes the relaxation behavior of a real material. 
+
+(a) Draw the equivalent mechanical analog model for this fit.
+
+(b) Determine the functional forms for the storage and loss moduli, and create a semi-log plot of the loss tangent $(\tan\delta)$ over a domain of relevant frequency orders $(\log \omega)$.
+
+\textbf{Solution:}
+
+(a)
+
+\begin{figure} [h!]
+    \centering
+    \includegraphics[scale=0.2]{janousek-figures/PS3_equivalentModel.jpg}
+    \caption{Equivalent analog model for $G_r (t) = C_r (200e^{-2t} + 100e^{-t} + 10)$.}
+    \label{ps3_3_analog_model}
+\end{figure}
+
+(b)
+
+From the definition of $G_r(t)$, we can say that $E_{\infty} = 10 C_r$ and $\widetilde{E}(t) = C_r (200e^{-2t} + 100e^{-t}$.
+
+Using this, we can calculate the storage and loss moduli.
+
+\begin{align*}
+    E'(\omega) &= E_{\infty} + \omega \int_0^{\infty} \widetilde{E}(t') \sin(\omega t') \mathrm{d}t'\\
+    &= 10 C_r + \omega \int_0^{\infty} C_r \left( 200e^{-2t'} + 100e^{-t'} \right) \sin(\omega t') \mathrm{d}t'\\
+    &= 10 C_r + \omega \left[ 200 C_r \frac{\omega}{4+\omega^2} + 100 C_r \frac{\omega^2}{1+\omega^2} \right]\\
+    &= C_r \left[ 10 +  200 \frac{\omega}{4+\omega^2} + 100 \frac{\omega^2}{1+\omega^2}\right].
+\end{align*}
+and
+\begin{align*}
+    E''(\omega) &= \omega \int_0^{\infty} \widetilde{E}(t') \cos(\omega t') \mathrm{d}t'\\
+    &= \omega \int_0^{\infty} C_r \left(200 e^{-2t'} + 100 e^{-t'}\right) \cos(\omega t') \mathrm{d}t'\\
+    &= \omega \left[ 200 C_r \frac{2}{4+\omega^2} + 100 C_r \frac{1}{1+\omega^2} \right]\\
+    &= C_r \left[ 400\frac{\omega}{4+\omega^2} + 100 \frac{\omega}{1+\omega^2} \right].
+\end{align*}
+
+We can then calculate the loss tangent as $\tan\delta = \frac{E''}{E'}$ and plot it on the semi-log plot for a range of frequencies.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.4]{janousek-figures/PS3_3_3.png}
+    \caption{Semi-log plot of $\tan\delta$ for a relevant range of frequencies}
+    \label{PS3_semilog_tandelta}
+\end{figure}
+
+\newpage
+\subsection*{3--4. \textbf{Fractional response} [4 pts].}
+
+This question will be best approached numerically, using e.g. Matlab or Mathematica. 
+
+Fractional order models can be used to show relaxation that does not follow the classic ``S-curve'' Debye relaxation function for $G_r(t)$ vs. $\log t$. 
+
+Starting from a Kelvin-Voigt-type fractional model with the functional form of 
+\begin{equation*}
+    G_r(t) = \left[10 + 2\left(\frac{t}{0.2} \right)^{-\alpha}\right] \mathcal{H}(t),
+\end{equation*}
+plot the stress and strain responses of this solid over time (i.e., plot $\sigma(t,\alpha)$ and $\varepsilon(t,\alpha)$ on separate plots for each part) for a range of values of $0<\alpha<1$ to (a) a step strain, (b) a step stress of only length $t=5$, and (c) another stress function entirely of your choice. 
+
+As a suggestion, you could consider values spaced symmetrically around zero on the logistic distribution, which is defined as $\textrm{logit}(\alpha) = \log\left(\frac{\alpha}{1-\alpha} \right)$. 
+Picking e.g., logit($\alpha$)$=0$ corresponds to $\alpha =0.5$, $\textrm{logit}(\alpha) =  1$ is $\alpha\approx0.73$, etc. 
+I suggest sampling integers on a range of logit($\alpha$) $= -4 \textrm{~to~} 4$ to cover the full range from elastic to viscous response for the springpot.
+
+\textbf{Solution:}
+
+This was fairly tough, I ran into issues when trying to deal with the step stress. I got a graph for the step strain:
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.35]{janousek-figures/PS3_3_4.png}
+    \caption{Stress response for a step strain over a range of value $0 < \alpha < 1$.}
+    \label{PS3_3_4_stepStrain}
+\end{figure}
+
+However, when I tried to convert $G_r(t)$ into the Laplace domain in order to calculate $J_c(s)$ and then $J_c(t)$ I ran into problems in Matlab. I wasn't able to make these transformations and inverse Laplace transforms work. From what we discussed, it seems that the function changes its functional form at $\alpha=0.5$. Due to this, I was unable to obtain the responses to the other two kinds of loading.
+
+\newpage
+\subsection*{3--5. \textbf{Rheology without a rheometer} [8 pts].}
+
+You have a rubbery material of density $\rho$ for which you plan to characterize frequency-dependent viscoelastic behavior. 
+The material you have can be made into a sphere of a wide range of sizes, from a radius of $R=1$ mm to $R=1$ m. 
+You plan to drop each ball onto a rigid half-space from a height $h_0$, and can measure the rebound height $h(R)$ for each ball radius $R$. 
+
+The impact duration for an elastic material is given by a Hertzian contact relation of
+\begin{equation*}
+    t_c = 5.21\frac{R}{c}\left(\frac{c}{\sqrt{2 g h_0}}\right)^{1/5} \approx 0.025R  \textrm{~~[s]}
+\end{equation*}
+where $c = 1000$ m/s represents the pressure wave speed in the material and the initial height $h_0$ is taken to be a consistent 0.01 m.
+
+(a) How much energy per volume is dissipated by the material for each size of ball? 
+
+(b) Using the Lissajous plot of $\sigma/|E^*|$ vs. $\varepsilon$, show that the approximate peak elastic energy stored in the ball during a half-cycle is $\frac{1}{2} B^2 \cos \delta$, where $B = \varepsilon_{\textrm{max}}$. 
+
+(c) Determine an approximate expression for the energy dissipated by the ball during a drop event in terms of $A = \varepsilon_{\textrm{max}} \sin \delta$ and $B$. 
+
+(d) Hence, determine $\tan\delta$ as a function of the rebound height, $h(R)$. 
+
+(e) For what frequencies could you say this material is calibrated?
+
+\textbf{Solution:}
+
+(a)
+
+\begin{align*}
+    \Delta E &= mg [h_0 - h(R)]\\
+    m &= \rho \times \frac{4}{3} \pi R^3\\
+    V &= \frac{4}{3}\pi R^3\\
+    \frac{\Delta E}{V} &= \frac{\rho \times \frac{4}{3} \pi R^3 g [h_0 - h(R)]}{\frac{4}{3} \pi R^3} = \rho g [h_0 - h(R)].
+\end{align*}
+
+(b)
+
+As per Rod Lakes' book, in Fig. 3.3 he shows a Lissajous plot and labels points o, p, q. He then states that the stored energy can be expressed as $\int E' \varepsilon \mathrm{d}\varepsilon = \frac{1}{2}E' \varepsilon_0^2$. He then states that this can be simply calculated from the graph as the area of the triangle $opq$. In this case. Point $o$ is at the origin, point $p$ is at ($B$, $B\cos(\delta)$, and point $q$ is at ($B$, 0). The area of this triangle is then $\frac{1}{2}B^2 \cos(\delta)$.
+
+(c)
+
+We can approximate the energy dissipated by the ball during the drop event as the area within the ellipse on the Lissajous plot. The dissipated energy can be expressed as $W_d = \frac{1}{2}\pi a b$, where $a$, $b$ are the semi-major and semi-minor axes. In this case, $a=A\sqrt{2}$ and $b=B\sqrt{2}$. That means that $W_d = \frac{1}{2}\pi A B$.
+
+(d)
+
+To determine $\tan\delta$, we can use the ratio of the stored and dissipated energies. $\frac{W_d}{W_s} = \pi \tan\delta$. Therefore $\tan\delta = \frac{A}{B\cos\delta}$. To relate this to the heights, we can express $W_s = mgh_0$ and $W_d = mg[h_0 - h(R)]$. Then we can say that $\tan\delta = \frac{h_0-h(R)}{\pi h_0}$.
+
+(e)
+
+Since we're given the impact time as $t_c \approx 0.025 R$, we can approximate the relevant frequency as $f = 1/t_c = 40R^{-1}$ Hz, assuming R is in meters. Since we're given a range for $R$, we can say that the minimum and maximum frequency are 40 Hz and 4 kHz, so I'd say this material is calibrated for a frequency range of $40 \mathrm{Hz} \leq f \leq 4 \mathrm{kHz}$.
